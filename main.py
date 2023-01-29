@@ -23,12 +23,11 @@ def main():
     config.read(config_file)
 
     start_value = config.getint('settings', 'start_value')
-    multiplier = config.getint('settings', 'multiplier')
+    multiplier = config.getfloat('settings', 'multiplier')
     server_id = config.get('settings', 'server_id')
     channel_id = config.get('settings', 'channel_id')
     bot_username = config.get('settings', 'bot_username')
     time.sleep(1)
-    print(start_value)
     # Validate config file
     while not all([start_value, server_id, channel_id, bot_username]):
         print("Config file is not valid. Please enter the required values.")
@@ -38,6 +37,7 @@ def main():
         channel_id = input("Enter the channel id: ")
         bot_username = input("Enter the bot's username: ")
         config.set('settings', 'start_value', start_value)
+        config.set('settings', 'multiplier', multiplier)
         config.set('settings', 'server_id', server_id)
         config.set('settings', 'channel_id', channel_id)
         config.set('settings', 'bot_username', bot_username)
