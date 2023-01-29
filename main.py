@@ -23,6 +23,7 @@ def main():
     config.read(config_file)
 
     start_value = config.getint('settings', 'start_value')
+    multiplier = config.getint('settings', 'multiplier')
     server_id = config.get('settings', 'server_id')
     channel_id = config.get('settings', 'channel_id')
     bot_username = config.get('settings', 'bot_username')
@@ -31,7 +32,8 @@ def main():
     # Validate config file
     while not all([start_value, server_id, channel_id, bot_username]):
         print("Config file is not valid. Please enter the required values.")
-        start_value = input("Enter the start value (default 5): ") or 5
+        start_value = input("Enter the start value (default 3): ") or 3
+        multiplier = input("Enter the multiplier (default 2.5): ") or 2.5
         server_id = input("Enter the server id: ")
         channel_id = input("Enter the channel id: ")
         bot_username = input("Enter the bot's username: ")
@@ -62,10 +64,10 @@ def main():
 
     usedmessages = []
 
-    def typeMessage(startv, used, counter):
+    def typeMessage(startv, used, counter, mp):
         time.sleep(0.25)
         elem = input_element
-        texts = ["/coin", ("heads" if counter % 2 == 0 else "tails"), str(int(startv))]
+        texts = ["/coin", "heads", str(int(startv))]
         counter += 1
         for text in texts:
             for character in text:
@@ -92,12 +94,12 @@ def main():
                 elif "Tails!" in msg:
                     # lose
                     print("Lost")
-                    startv *= 3
+                    startv *= mp
                 used += message.get_attribute("id");
                 break
-        typeMessage(startv, usedmessages, counter)
+        typeMessage(startv, usedmessages, counter, mp)
 
-    typeMessage(start_value, usedmessages, counter)
+    typeMessage(start_value, usedmessages, counter, multiplier)
 
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ def coin_flip():
         return "tails"
 
 
-def choice(onlyheads=True):
+def choice(onlyheads=False):
     if onlyheads:
         return "heads"
     flip = random.randint(0, 1)
